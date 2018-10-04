@@ -1,25 +1,12 @@
-let budget = +prompt("Ваш бюджет на месяц", '100');
-let timeData = prompt("Введите дату в формате YYYY-MM-DD", '2018-10-04');
-let appData = {
-    budget,
-    timeData,
-    expenses: {
+"use strict";
 
-    },
-    optinalExpenses: {
+var num = 33721;
+var strNum = num + "";
+var multipleNum = strNum[0] * strNum[1] * strNum[2] * strNum[3] * strNum[4];
 
-    },
-    income: [],
-    savings: false
-};
+console.log(multipleNum);
 
-let a1 = prompt("Введите обязательную статью расходов в этом месяце", ''),
-    a2 = prompt("Во сколько обойдется?", ''),
-    a3 = prompt("Введите обязательную статью расходов в этом месяце", ''),
-    a4 = prompt("Во сколько обойдется?", '');
+var degreeMultipleNum = multipleNum ** 3;
+var strDegreeMultipleNum = degreeMultipleNum + "";
 
-appData.expenses[a1] = a2;
-appData.expenses[a3] = a4;
-console.log(appData);
-
-alert('Ваш бюджет: ' + budget / 30 + ' рублей');
+alert(strDegreeMultipleNum[0] + strDegreeMultipleNum[1]);
