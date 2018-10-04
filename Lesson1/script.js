@@ -1,17 +1,25 @@
-let username = prompt("Ваше имя", '');
-let budget = +prompt("Ваш бюджет на месяц?",'');
-let mainList = {
+let budget = +prompt("Ваш бюджет на месяц", '100');
+let timeData = +prompt("Введите дату в формате YYYY-MM-DD", '2018-10-04');
+let appData = {
     budget,
-    username,
-    shopGoods: [],
-    employers: {},
-    open: false
+    timeData,
+    expenses: {
+
+    },
+    optinalExpenses: {
+
+    },
+    income: [],
+    savings: false
 };
 
-mainList.shopGoods[0] = prompt("Какой тип товаров будете продавать", "");
-mainList.shopGoods[1] = prompt("Какой тип товаров будете продавать", "");
-mainList.shopGoods[2] = prompt("Какой тип товаров будете продавать", "");
+let a1 = prompt("Введите обязательную статью расходов в этом месяце", ''),
+    a2 = prompt("Во сколько обойдется?", ''),
+    a3 = prompt("Введите обязательную статью расходов в этом месяце", ''),
+    a4 = prompt("Во сколько обойдется?", '');
 
-alert("Ваш бюджет на день: "+budget/30+" рублейАртем");
+appData.expenses[a1] = a2;
+appData.expenses[a3] = a4;
+console.log(appData.expenses);
 
-console.log(mainList);
+alert('Ваш бюджет: ' + budget / 30 + ' рублей');
