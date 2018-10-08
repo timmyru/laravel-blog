@@ -1,40 +1,32 @@
-function getWeekDay(date) {
-    date = date || new Date();
-    let days = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
-    let day = date.getDay();
-    return days[day];
-}
+'use strict';
 
-let date = new Date();
-alert('Привет, бро. Сейчас ты увидишь дни недели. И курсивом тебе покажется именно сегодяшний день'); 
+var money = prompt("Ваш бюджет на месяц?"),
+    time = prompt("Введите дату в формате YYYY-MM-DD?");
 
 
-let week = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
-let j = 0;
-let arrSpan = [];
-for (let k=0; k < week.length; k++) {
-    arrSpan[k] = document.createElement('span');
-    arrSpan[k].style.display = 'block';
-}
+console.log(money);
+console.log(time);
 
-console.log(arrSpan);
+var whatyoubuy = prompt("Введите обязательную статью расходов в этом месяце?"),
+    priceofthis = prompt("Во сколько обойдется?");
 
+console.log(whatyoubuy);
+console.log(priceofthis);
 
-while (j < week.length) {
-    document.body.appendChild(arrSpan[j]);
-    arrSpan[j].innerHTML = week[j];
-	if (week[j] == getWeekDay(date)) {
-        arrSpan[j].style.fontStyle = 'italic';
-	}
-	else if (j==5 || j==6) {
-        arrSpan[j].style.fontWeight = 'bold';        
-	}
-	j++;
-}
+var appData = {
+    budjet: money,
+    datatime: time,
+    general_expenses: expenses,
+    optionalExpenses: "",
+    income: "",
+    savings: false
+};
 
-let arr = ['123', '234', '345', '456', '567', '618', '789'];
-for (let i = 0; i < arr.length; i++) {
-    if (arr[i].startsWith('3') || arr[i].startsWith('7')) {
-        console.log(arr[i]);
-    }
-}
+var expenses = {
+    whatyoubuy: priceofthis,
+};
+
+console.log(appData);
+
+var budjet_day = money / 30;
+alert("Ваш бюджет на день в этом месяце " + budjet_day);
