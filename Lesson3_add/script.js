@@ -10,9 +10,9 @@ console.log(str);
 let arr = [20, 33, 1, "Человек", 2, 3],
     summ = 0;
 
-for (let i=0; i<arr.length; i++) {
+for (let i = 0; i < arr.length; i++) {
     if (!isNaN(arr[i])) {
-        summ = summ + arr[i]**3;
+        summ = summ + arr[i] ** 3;
     }
 }
 
@@ -20,7 +20,7 @@ let sqrt = Math.sqrt(summ);
 console.log(sqrt);
 
 function spaces(text) {
-    if(typeof(text) != 'string') {
+    if (typeof (text) != 'string') {
         alert('Перезагрузите страницу и введите текст');
     } else {
 
@@ -30,16 +30,16 @@ function spaces(text) {
         while (text[0] == ' ');
 
         do {
-            text = text.slice(0, text.length-1);
+            text = text.slice(0, text.length - 1);
         }
-        while (text[text.length-1] == ' ');
+        while (text[text.length - 1] == ' ');
 
-        if (text.length>50) {
+        if (text.length > 50) {
             text = text.slice(0, 50) + '...';
         }
-        
-        console.log(text);        
-        
+
+        console.log(text);
+
     }
 }
 
