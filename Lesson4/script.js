@@ -1,104 +1,99 @@
-
 'use strict';
-let budget, timeData;
+
+let money, time;
 
 function start() {
-    budget = +prompt("Ваш бюджет на месяц", '100');
-    while (isNaN(budget) || budget == '' || budget == null) {
-        budget = +prompt("Ваш бюджет на месяц", '100');
+    money = +prompt("Ваш бюджет на месяц?", '');
+    time = prompt("Введите дату в формате YYYY-MM-DD?", '');
+
+    while (isNaN(money) || money == '' || money == null) {
+        money = +prompt("Ваш бюджет на месяц?", '');
     }
-    timeData = prompt("Введите дату в формате YYYY-MM-DD", '2018-10-04');
-
 }
-
 start();
 
 let appData = {
-    budget,
-    timeData,
+    budget: money,
+    datatime: time,
     expenses: {},
-    optinalExpenses: {},
+    optionalExpenses: {},
     income: [],
     savings: true,
     chooseExpenses: function () {
         for (let i = 0; i < 2; i++) {
-            let expendName = prompt("Введите обязательную статью расходов в этом месяце", ''),
-                expendCost = prompt("Во сколько обойдется?", '');
-            if (typeof (expendName) === 'string' && expendName != null && typeof (expendCost) != null &&
-                expendName != '' && expendCost != '' && expendName.length < 30) {
-                console.log('done');
-                appData.expenses[expendName] = expendCost;
+            let item = prompt("Введите обязательную статью расходов в этом месяце?", ''),
+                price = prompt("Во сколько обойдется?", '');
+            if ((typeof (item)) === 'string' && item != null && price != null
+                && item != '' && price != '' && item.length < 50) {
+                console.log("done");
+                appData.expenses[item] = price;
             } else {
-                alert('Введите верные значения. Попробуйте еще раз');
-                if (i > 0) {
-                    i--;
-                }
+                console.log("Smth wrong! Check your input!");
+                i--;
             }
         }
     },
     detectDayBudget: function () {
-        appData.moneyPerDay = (appData.budget / 30).toFixed(1);
-        alert('Ежедневный бюджет: ' + appData.moneyPerDay);
+        appData.moneyPerDay = (appData.budget / 30).toFixed();
+        alert("Ежедневный бюджет: " + appData.moneyPerDay);
     },
     detectLevel: function () {
         if (appData.moneyPerDay < 100) {
-            console.log('Минимальный уровень достатка');
+            console.log("Low income!");
         } else if (appData.moneyPerDay > 100 && appData.moneyPerDay < 2000) {
-            console.log('Средний уровень достатка');
+            console.log("Normal income!");
         } else if (appData.moneyPerDay > 2000) {
-            console.log('Высокий уровень достатка');
+            console.log("High income!");
         } else {
-            console.log('Произошла ошибка');
+            console.log("Error!");
         }
     },
     checkSavings: function () {
         if (appData.savings == true) {
-            let save = +prompt('Какова сумма накоплений?'),
-                percent = +prompt('Под какой процент?');
+            let save = +prompt("Какова сумма накоплений?"),
+                percent = +prompt("Под какой процент?");
 
             appData.monthIncome = save / 100 / 12 * percent;
-            alert('Доход в месяц с вашего депозита: ' + appData.monthIncome);
+            alert("Доход в месяц с вашего депозита: " + appData.monthIncome);
         }
     },
     chooseOptExpenses: function () {
-        for (let i = 1; i < 4; i++) {
-            let chosenOptExpenses = prompt('Статья необязательных расходов', '');
-            if (chosenOptExpenses != null && chosenOptExpenses !== '') {
-                appData.optinalExpenses[i] = chosenOptExpenses;
+        for (let i = 0; i < 3; i++) {
+            let question = prompt("Статья необязательных расходов?", '');
+            if (typeof (question) === 'string' && question != null
+                && question != '' && question.length < 50) {
+                console.log("done");
+                appData.expenses[i] = question;
             } else {
-                alert('Попробуйте еще раз. Введено неверное значение');
+                console.log("Smth wrong! Check your input!");
                 i--;
             }
         }
     },
     chooseIncome: function () {
-        let items = prompt('Что принесет дополнительный доход? Перечислите через запятую', '');
-        while (items === null || items == '' || !isNaN(items)) {
-            items = prompt('Что принесет дополнительный доход? Перечислите через запятую', '');
+        for (let i = 0; i < 1; i++) {
+            let items = prompt("Что принесет дополнительный доход? (Перечислить через запятую!)", "");
+            if (isNaN(items) && items != '' && items != null) {
+                console.log('done');
+                appData.income = items.split(', ');
+                appData.income.push(prompt("Может что-то ещё?"));
+                appData.income.sort();
+            } else {
+                console.log("Ошибка! Неверный ввод!");
+                i--;
+            }
         }
-        appData.income = items.split(', ');
-        appData.income.push(prompt('Может, что-то еще?', ''));
-        appData.income.sort();
-        let title = document.createElement('h4');
-        title.innerHTML = 'Способы доп заработка: ';
-        document.body.appendChild(title);
-        appData.income.forEach(function (item, i) {
-            let spanIncome = document.createElement('span');
-            spanIncome.style.display = 'block';
-            document.body.appendChild(spanIncome);
-            spanIncome.innerHTML = `${+i+1}) ${item}`;
+        console.log("Способы доп. заработка: ");
+        appData.income.forEach(function (item, i, income) {
+            console.log((i + 1) + ' : ' + item);
         });
     }
 };
 
-// appData.detectDayBudget();
-// appData.detectLevel();
 appData.chooseIncome();
 
-console.log('Наша программа включает в себя данные:');
+let data = [];
 for (let key in appData) {
-    console.log(key);
+    data.push(key);
 }
-
-console.log(appData);
-
+console.log("Наша программа включает в себя данные: " + data);
