@@ -1,20 +1,34 @@
-let menuLi = document.querySelectorAll('.menu-item'),
-    elementLi = document.createElement('li'),
-    menuUl = document.getElementsByClassName('menu'),
-    adv = document.getElementsByClassName('adv'),
-    title = document.getElementById('title'),
-    promptApple = document.getElementById('prompt');
+let li = document.createElement('li'),
+    text = document.createTextNode('Пятый пункт'),
+    menu = document.querySelector('.menu');
 
-elementLi.innerHTML = "Пятый пункт";
-elementLi.className = "menu-item";
-menuUl[0].appendChild(elementLi);
-menuUl[0].insertBefore(menuLi[2], menuLi[1]);
+li.classList.add('menu-item');
+menu.appendChild(li);
+li.innerHTML = 'Пятый пункт';
 
-document.body.style.background = "url(./img/apple_true.jpg) center no-repeat";
+//second
+document.body.style.background = 'url(img/apple_true.jpg)';
 
-title.innerHTML = "Мы продаем только <strong>подлинную</strong> технику Apple";
+// third
+document.getElementById("title").innerHTML = "Мы продаем только подлинную технику Apple";
 
-adv[0].remove();
+// fourth
+let adv = document.getElementsByClassName('adv');
 
-let answer = prompt('Как вы относитесь в технике Apple?', '');
-promptApple.innerHTML = answer;
+adv[0].parentNode.removeChild(adv[0]);
+
+//fifth
+let question = prompt('Что Вы думаете по поводу продукции компании Apple?', '');
+
+document.getElementById("prompt").innerHTML = question;
+
+// order
+let sec = document.getElementsByClassName('menu-item');
+sec[1].parentNode.removeChild(sec[1]);
+
+let f = document.querySelector('.menu'),
+    third = document.createElement('li');
+
+third.classList.add('menu-item')
+third.innerHTML = 'Третий пункт';
+f.insertBefore(third, sec[2]);
