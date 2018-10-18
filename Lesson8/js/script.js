@@ -81,15 +81,17 @@
             
             let i = 1;
 
-            let scroll = setInterval(function () {
-                window.scrollBy(0, coordinates / 20);
+            function step() {
+                let req = requestAnimationFrame(step);
+                window.scrollBy(0, coordinates / 30);
                 i++;
-                console.log(i);
-
-                if (i == 21) {
-                    clearInterval(scroll);
+                if (i == 31) {
+                    cancelAnimationFrame(req);
                 }
-            },30);
+            };
+
+            step();
+
         }
     })
 
