@@ -191,12 +191,34 @@
                 document.body.style.overflow = 'hidden';
             });
         }
+    } else {
+        more.addEventListener('click', function () {
+            overlay.classList.remove('fade');
+            overlay.style.display = 'block';
+            popup.classList.remove('transform');
+            popup.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        });
+
+        close.addEventListener('click', function () {
+            overlay.style.display = 'none';
+            overlay.classList.add('fade');
+            popup.style.display = 'none';
+            popup.classList.add('transform');
+            document.body.style.overflow = 'visible';
+        });
+
+        for (let i = 0; i < descrBtn.length; i++) {
+            descrBtn[i].addEventListener('click', function () {
+                overlay.classList.remove('fade');
+                overlay.style.display = 'block';
+                popup.classList.remove('transform');
+                popup.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            });
+        }
     }
     
-
-
-    
-
 });
 
 

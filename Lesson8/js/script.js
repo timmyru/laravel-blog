@@ -1,38 +1,56 @@
-    window.addEventListener('DOMContentLoaded', function () {
-   'use strict';
-   
+window.addEventListener('DOMContentLoaded', function() {
+
+    'use strict';
+
+    //Tabs
+
     let tab = document.querySelectorAll('.info-header-tab'),
         info = document.querySelector('.info-header'),
         tabContent = document.querySelectorAll('.info-tabcontent');
-    
-    for (let i = 1; i < tabContent.length; i++) {
-        tabContent[i].style.display = 'none';
+
+    function hideTabContent(a) {
+        for (let i = a; i < tabContent.length; i++) {
+            tabContent[i].classList.remove('show');
+            tabContent[i].classList.add('hide');
+        }
     }
 
-    for(let i=0; i<tab.length; i++) {
-        tab[i].addEventListener('click', function () {
-            for (let j = 0; j < tabContent.length; j++) {
-                tabContent[j].style.display = 'none';
-            }
-            tabContent[i].style.display = 'flex';
-        });
+    hideTabContent(1);
+
+    function showTabContent(b) {
+        if (tabContent[b].classList.contains('hide')) {
+            tabContent[b].classList.remove('hide');
+            tabContent[b].classList.add('show');
+        }
     }
+
+    info.addEventListener('click', function(e) {
+        let target = e.target;
+        if (target && target.classList.contains('info-header-tab')) {
+            for (let i = 0; i < tab.length; i++) {
+                if (target == tab[i]) {
+                    hideTabContent(0);
+                    showTabContent(i);
+                    break;
+                }
+            }
+        }
+    });
+
+    //Timer
 
     let deadline = '2018-10-18';
+
     function getTimeRemaining(endtime) {
         let t = Date.parse(endtime) - Date.parse(new Date()),
-            seconds = Math.floor((t/1000) % 60),
+            seconds = Math.floor((t / 1000) % 60),
             minutes = Math.floor((t / 1000 / 60) % 60),
-            hours = Math.floor(t / (1000*60*60));
-            if (seconds<10) {
-                seconds = '0'+seconds;
-            }
-            if (minutes < 10) {
-                minutes = '0' + minutes;
-            }
-            if (hours < 10) {
-                hours = '0' + hours;
-            }
+            hours = Math.floor((t / (1000 * 60 * 60)));
+
+        if (hours < 10 && hours >= 0) hours = "0" + hours;
+        if (minutes < 10 && minutes >= 0) minutes = "0" + minutes;
+        if (seconds < 10 && seconds >= 0) seconds = "0" + seconds;
+
         return {
             'total': t,
             'hours': hours,
@@ -41,60 +59,48 @@
         };
     }
 
-   
-    
-
     function setClock(id, endtime) {
         let timer = document.getElementById(id),
-        hours = timer.querySelector('.hours'),
-        minutes = timer.querySelector('.minutes'),
-        seconds = timer.querySelector('.seconds'),
-        timeInterval = setInterval(updateClock, 1000);
+            hours = timer.querySelector('.hours'),
+            minutes = timer.querySelector('.minutes'),
+            seconds = timer.querySelector('.seconds'),
+            timeInterval = setInterval(updateClock, 1000);
 
         function updateClock() {
             let t = getTimeRemaining(endtime);
-            
-            
 
-            if (t.total <= 0) {
-                clearInterval(timeInterval);
+            hours.textContent = t.hours;
+            minutes.textContent = t.minutes;
+            seconds.textContent = t.seconds;
+
+            if (t.total <= 0 ) {
                 hours.textContent = '00';
                 minutes.textContent = '00';
                 seconds.textContent = '00';
-            } else {
-                hours.textContent = t.hours;
-                minutes.textContent = t.minutes;
-                seconds.textContent = t.seconds;
+                clearInterval(timeInterval);
             }
         }
     }
-    
+
     setClock('timer', deadline);
 
-    let nav = document.getElementsByTagName('ul')[0];
-    nav.addEventListener('click', function (event) {
-        if (event.target.tagName == 'A') {
-            event.preventDefault();
-            let link = event.target.getAttribute('href').slice(1);
-            link = document.getElementById(link);
-            let coordinates = link.getBoundingClientRect().top;
-            
-            let i = 1;
+    //Scroll
 
-            function step() {
-                let req = requestAnimationFrame(step);
-                window.scrollBy(0, coordinates / 30);
-                i++;
-                if (i == 31) {
-                    cancelAnimationFrame(req);
-                }
-            };
+    let container = [].slice.call(document.querySelectorAll('a[href*="#"]'));
 
-            step();
-
-        }
-    })
-
+    container.forEach(function(item) {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            let coorY = document.querySelector(item.getAttribute('href')).getBoundingClientRect().top,
+                scroll = setInterval(function() {
+                    let scrollBy = coorY / 100;
+                    if(scrollBy > window.pageYOffset - coorY && window.innerHeight + window.pageYOffset < document.body.offsetHeight) {
+                        window.scrollBy(0, scrollBy);
+                    } else {
+                        window.scrollTo(0, coorY);
+                        clearInterval(scroll);
+                    }
+            }, 10);
+        });
+    });
 });
-
-
