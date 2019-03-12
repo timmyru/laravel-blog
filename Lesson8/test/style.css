@@ -1,0 +1,35 @@
+nav {
+    display: flex;
+    font-size: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 50px;
+    flex-direction: column;
+}
+
+nav span {
+    display: block;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: left;
+    cursor: pointer;
+}
+
+main {
+    width: 22%;
+    margin: 0 auto;
+    font-size: 40px;
+}
+
+#second {
+    margin-top: 200px;
+}
+
+#third {
+    margin-top: 200px;
+}
+
+body {
+    margin: 0;
+}
