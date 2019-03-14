@@ -33,6 +33,11 @@
                     </tr>
                 @endforelse
             </tbody>
+            <tfoot>
+                <ul class="pagination pull-right">
+                    {{$categories->links()}}
+                </ul>
+            </tfoot>
         </table>
     </div>
 @endsection

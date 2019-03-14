@@ -16,7 +16,7 @@ class CategoryController extends Controller
     public function index()
     {
         return view('admin.category.index', [
-           'categories' => Category::paginate(10),
+            'categories' => Category::paginate(10),
         ]);
     }
 
@@ -27,7 +27,11 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.category.create', [
+            'category' => [],
+            'categories' => Category::with('children')->where('parent_id','0')->get(),
+            'delimeter' => ''
+        ]);
     }
 
     /**
@@ -38,7 +42,9 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+//        die(var_dump($_POST));
+        Category::create($request->all());
+        return redirect()->route('admin.category.index');
     }
 
     /**
